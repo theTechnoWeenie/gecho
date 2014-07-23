@@ -1,4 +1,4 @@
-package main
+package gecho
 
 import (
 	"fmt"
@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	StartServer()
+}
+
+func StartServer() {
 	http.HandleFunc("/echo", echo)
 	http.HandleFunc("/", root)
 	http.ListenAndServe(":8080", connectionPrinter(http.DefaultServeMux))

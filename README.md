@@ -25,7 +25,7 @@ Response:
 Doing a post is similar except that the data that is sent in the body is returned as is. No conversion to JSON is done, so GIGO.
 
 ## / (root)
-This endpoint displays a very static page that uses the environemnt variable REGION to display where this server is being run.
+This endpoint displays a very static page that uses the environemnt variable `REGION` to display where this server is being run.
 
 
 # Build instructions
@@ -47,5 +47,5 @@ If you are running mac, or windows you will need boot2docker (boot2docker.com) t
 Sample command to run the echo service:
 ```
 docker build -t echoservice .
-docker runt -d -P -e REGION=HOME echoservice
+docker run -d -P -e REGION=HOME echoservice
 ```

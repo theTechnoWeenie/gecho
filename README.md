@@ -49,3 +49,12 @@ Sample command to run the echo service:
 docker build -t echoservice .
 docker run -d -P -e REGION=HOME echoservice
 ```
+
+# Roadmap
+
+Although this is meant to be a simple service, the reason it was developed was to provide a sane basic service for a microservice environment.
+
+## TODO:
+- Add in registration with service discovery. (Service discovery method TBD, but probably something with SRV)
+- Add in health metrics. No service is too small to monitor!
+-- This would be adding endpoints such as /status, /metrics, /uptime or really anything else that would be informative

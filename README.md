@@ -9,6 +9,19 @@ Currently this is very static, and has only 1 configuration option.  Setting the
 
 # Endpoints
 
+## /uptime
+This will return a JSON blob describing the uptime of the server.
+
+### Example:
+Request:
+```
+curl localhost:8080/uptime
+```
+Response:
+```
+{"Miliseconds":13804,"HourMinuteSecond":"00:00:13"}
+```
+
 ## /echo
 To use the echo service, either do a GET request with query parameters, or a post request with JSON in the body.
 
@@ -34,7 +47,7 @@ To build for local use
 go build echoservice.go
 ```
 
-To build in a docker container run 
+To build in a docker container run
 
 ```
 docker build .
@@ -57,4 +70,4 @@ Although this is meant to be a simple service, the reason it was developed was t
 ## TODO:
 - Add in registration with service discovery. (Service discovery method TBD, but probably something with SRV)
 - Add in health metrics. No service is too small to monitor!
--- This would be adding endpoints such as /status, /metrics, /uptime or really anything else that would be informative
+-- This would be adding endpoints such as /status, /metrics or really anything else that would be informative

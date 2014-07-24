@@ -6,16 +6,38 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+	"time"
 )
+
+var startTime time.Time
+
+type UptimeFormat struct {
+	Miliseconds int64
+	HourMinuteSecond string
+}
 
 func main() {
 	StartServer()
 }
 
 func StartServer() {
+	startTime = time.Now()
 	http.HandleFunc("/echo", echo)
 	http.HandleFunc("/", root)
+	http.HandleFunc("/uptime", retrieveUptime)
 	http.ListenAndServe(":8080", connectionPrinter(http.DefaultServeMux))
+}
+
+func elapsedDuration() time.Duration{
+	return time.Since(startTime)
+}
+
+func retrieveUptime(writer http.ResponseWriter, r *http.Request){
+	d := elapsedDuration()
+	hourMinuteSecond := fmt.Sprintf("%02d:%02d:%02d", int(d.Hours()), int(d.Minutes())%60,int(d.Seconds())%60)
+	uptimeStruct := UptimeFormat { d.Nanoseconds()/1000/1000,hourMinuteSecond }
+	responseJson, _ := json.Marshal(uptimeStruct)
+	writer.Write(responseJson)
 }
 
 func echo(writer http.ResponseWriter, r *http.Request){

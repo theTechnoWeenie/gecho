@@ -4,8 +4,9 @@ gecho
 Simple HTTP echo service written in go
 
 # Configuration
-Currently this is very static, and has only 1 configuration option.  Setting the environment variable `REGION` will change the greeting on the root page.
-
+Currently this is very static, and has only 2 configuration option.  
+* Setting the environment variable `REGION` will change the greeting on the root page.
+* Setting the environment variable `GREG_ADDRESS` will set the address for the the greg service registry (www.github.com/theTechnoWeenie/greg)
 
 # Endpoints
 
@@ -36,6 +37,15 @@ Response:
 ```
 
 Doing a post is similar except that the data that is sent in the body is returned as is. No conversion to JSON is done, so GIGO.
+
+## /healthCheck
+This is the endpoint that will be used by greg to determine if the service is still responsive.
+Since this is such a simple service it  will only respond with
+
+```
+{ "status":"RUNNING" }
+```
+As defined in the `greg/server` package
 
 ## / (root)
 This endpoint displays a very static page that uses the environemnt variable `REGION` to display where this server is being run.

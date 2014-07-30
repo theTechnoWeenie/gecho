@@ -55,7 +55,7 @@ func retrieveUptime(writer http.ResponseWriter, r *http.Request) {
 }
 
 func verifyHealth(writer http.ResponseWriter, req *http.Request) {
-	writer.Write([]byte(fmt.Sprintf(`{"status":"%s"}`, server.STATUS_RUNNING)))
+	writer.Write([]byte(fmt.Sprintf(`{"Status":"%s"}\n`, server.STATUS_RUNNING)))
 }
 
 func echo(writer http.ResponseWriter, r *http.Request) {

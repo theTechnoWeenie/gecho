@@ -1,4 +1,4 @@
-package echoservice
+package tagservice
 
 import (
 	"encoding/json"
@@ -29,7 +29,6 @@ func main() {
 
 func StartServer() {
 	startTime = time.Now()
-	http.HandleFunc("/echo", echo)
 	http.HandleFunc("/", root)
 	http.HandleFunc("/uptime", retrieveUptime)
 	http.HandleFunc("/healthCheck", verifyHealth)
@@ -74,7 +73,7 @@ func echo(writer http.ResponseWriter, r *http.Request) {
 
 func root(writer http.ResponseWriter, req *http.Request) {
 	region, gregAddress := parseEnv()
-	t, err := template.ParseFiles("echoservice/templates/index.html")
+	t, err := template.ParseFiles("tagservice/templates/index.html")
 	if err != nil {
 		fmt.Printf("ERR: %s\n", err.Error())
 	}

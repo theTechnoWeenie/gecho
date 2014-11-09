@@ -1,7 +1,7 @@
 package main
 
-import "github.com/theTechnoWeenie/gecho/echoservice"
+import "github.com/icbat/gamer-tag/tagservice"
 
 func main() {
-	echoservice.StartServer()
+	tagservice.StartServer()
 }

@@ -19,16 +19,13 @@ type Template struct {
 	GregAddress string
 }
 
-func main() {
-	StartServer()
-}
-
 func StartServer() {
 	startTime = time.Now()
 	http.HandleFunc("/", root)
 	http.HandleFunc("/uptime", retrieveUptime)
 	http.HandleFunc("/healthCheck", verifyHealth)
-	http.ListenAndServe(":8080", connectionPrinter(http.DefaultServeMux))
+	err := http.ListenAndServe(":8080", connectionPrinter(http.DefaultServeMux))
+	fmt.Printf("%s", err)
 }
 
 func connectionPrinter(handler http.Handler) http.Handler {
@@ -43,7 +40,7 @@ func retrieveUptime(writer http.ResponseWriter, r *http.Request) {
 	hourMinuteSecond := fmt.Sprintf("%02d:%02d:%02d", int(d.Hours()), int(d.Minutes())%60, int(d.Seconds())%60)
 	uptimeStruct := UptimeFormat{d.Nanoseconds() / 1000 / 1000, hourMinuteSecond}
 	responseJson, err := json.Marshal(uptimeStruct)
-	if err == nil {
+	if err != nil {
 		fmt.Printf("ERR: Malformed JSON: %s\n", err.Error())
 	}
 	writer.Write(responseJson)
